@@ -1,0 +1,14 @@
+version: "3"
+services:
+  go-web-app:
+    restart: always
+    ports: 80:8080
+    build:
+        dockerfile: Dockerfile
+        context: .
+    links:
+      - redis
+    environment:
+      REDIS_URL: redis:6379
+  redis:
+    image: redis:alpine
