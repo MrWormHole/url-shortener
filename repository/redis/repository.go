@@ -20,7 +20,7 @@ func newRedisClient(redisURL string) (*redis.Client, error) {
 	}
 
 	client := redis.NewClient(options)
-	_, err = client.Ping(client.Context()).Result()
+	_, err = client.Ping().Result()
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (r *redisRepository) Find(hash string) (*shortener.Redirect, error) {
 	redirect := &shortener.Redirect{}
 	key := r.generateKey(hash)
 
-	data, err := r.client.HGetAll(r.client.Context(), key).Result()
+	data, err := r.client.HGetAll(key).Result()
 	if err != nil {
 		return nil, errors.Wrap(err, "repository.Redirect.Find")
 	}
@@ -74,7 +74,7 @@ func (r *redisRepository) Store(redirect *shortener.Redirect) error {
 		"created_at": redirect.CreatedAt,
 	}
 
-	_, err := r.client.HMSet(r.client.Context(), key, data).Result()
+	_, err := r.client.HMSet(key, data).Result()
 	if err != nil {
 		return errors.Wrap(err, "repository.Redirect.Store")
 	}

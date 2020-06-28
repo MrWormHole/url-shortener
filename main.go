@@ -48,11 +48,11 @@ func main() {
 }
 
 func pickPort() string {
-	port := "8000"
+	defaultPort := "8000"
 	if os.Getenv("PORT") != "" {
-		port = os.Getenv("PORT")
+		defaultPort = os.Getenv("PORT")
 	}
-	return fmt.Sprintf(":%s", port)
+	return fmt.Sprintf(":%s", defaultPort)
 }
 
 func pickRepository() shortener.RedirectRepository {
