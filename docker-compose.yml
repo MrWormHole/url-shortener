@@ -8,15 +8,8 @@ services:
     ports: 
       - 8080:8080
     build:
-<<<<<<< HEAD
-        dockerfile: Dockerfile
-        context: .
-=======
       dockerfile: Dockerfile
       context: .
-    links:
-      - redis
->>>>>>> e3f11e02e7c61b46a916cfb22c17be7fbe4c99e7
     environment:
       PORT: 8080
       URL_DB: redis
@@ -26,7 +19,6 @@ services:
         ipv4_address: 172.20.1.3
   redis:
     image: redis:alpine
-<<<<<<< HEAD
     ports:
       - 6379:6379
     networks:
@@ -39,6 +31,3 @@ networks:
       config:
         - subnet: 172.20.1.0/24
     
-
-=======
->>>>>>> e3f11e02e7c61b46a916cfb22c17be7fbe4c99e7
