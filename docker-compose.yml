@@ -1,17 +1,34 @@
 version: "3"
+
 services:
   go-web-app:
+    depends_on:
+      - redis
     restart: always
     ports: 
-      - 80:8080
+      - 8080:8080
     build:
         dockerfile: Dockerfile
         context: .
-    links:
-      - redis
     environment:
       PORT: 8080
       URL_DB: redis
-      REDIS_URL: redis:6379
+      REDIS_URL: redis://172.20.1.2:6379
+    networks:
+      testing_net:
+        ipv4_address: 172.20.1.3
   redis:
     image: redis:alpine
+    ports:
+      - 6379:6379
+    networks:
+      testing_net:
+        ipv4_address: 172.20.1.2
+networks:
+  testing_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.1.0/24
+    
+
